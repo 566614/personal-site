@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>阮佳瑶 | 用 AI 做内容与产品的操盘手</title>
+  <style>
+    :root {
+      --bg-cream: #f9f6f0;
+      --bg-gradient-start: #fdf4f0;
+      --bg-gradient-mid: #f8f6e8;
+      --bg-gradient-end: #eef6f0;
+      --card: rgba(255, 255, 255, 0.82);
+      --card-solid: #ffffff;
+      --text: #1a1a1a;
+      --text-secondary: #5c5c5c;
+      --text-muted: #8a8a8a;
+      --primary: #6b5ce7;
+      --primary-light: #f0edff;
+      --accent-green: #5a7c5a;
+      --accent-green-light: #e8f0e8;
+      --accent-yellow: #f5d78e;
+      --accent-pink: #f5c4c4;
+      --dark-card: #2a3a30;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 30px 80px rgba(0, 0, 0, 0.12);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 40%, var(--bg-gradient-end) 100%);
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    .nav-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 20px 4vw;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 50px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 50px;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(0, 0, 0, 0.06);
+      color: var(--text);
+    }
+
+    .nav-resume {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .nav-resume:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--text);
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 4vw;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4.5vw, 42px);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-top: 10px;
+      max-width: 560px;
+    }
+
+    /* Hero */
+    #hero {
+      padding-top: 150px;
+      padding-bottom: 60px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    .hero-title {
+      font-size: clamp(44px, 7vw, 76px);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 16px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero-role {
+      font-size: clamp(18px, 2.2vw, 24px);
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      background: white;
+      color: var(--text-secondary);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-dark {
+      background: var(--text);
+      color: white;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    }
+
+    .btn-light {
+      background: white;
+      color: var(--text);
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .btn-light:hover {
+      background: var(--bg-cream);
+      transform: translateY(-2px);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-portrait-frame {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1/1.15;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, #f0e6ff 0%, #e8f5e9 50%, #fff3e0 100%);
+    }
+
+    .hero-portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 24px;
+      right: -20px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow);
+      min-width: 140px;
+    }
+
+    .hero-badge .number {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .hero-badge .text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.55;
+      z-index: -1;
+    }
+
+    .hero-glow-1 {
+      top: -60px;
+      right: -60px;
+      background: var(--accent-pink);
+    }
+
+    .hero-glow-2 {
+      bottom: -80px;
+      left: -80px;
+      background: var(--accent-yellow);
+    }
+
+    /* Experience Section */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .experience-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 36px;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .experience-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--bg-cream);
+    }
+
+    .experience-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .experience-timeline {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      bottom: 16px;
+      width: 2px;
+      background: rgba(0,0,0,0.08);
+    }
+
+    .experience-timeline::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -3px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .experience-content .period {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 12px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    .experience-content h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .experience-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    .experience-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .experience-tags span {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(0,0,0,0.04);
+      padding: 5px 11px;
+      border-radius: 50px;
+    }
+
+    /* Side Projects Section */
+    .project-showcase {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .project-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .project-gallery img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      transition: transform 0.3s ease;
+    }
+
+    .project-gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    .project-info .period {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-green);
+      background: var(--accent-green-light);
+      padding: 6px 12px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    .project-info h3 {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .project-info p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* Archive Cards */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .archive-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .archive-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .archive-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent-green));
+    }
+
+    .archive-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .archive-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .archive-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .archive-meta {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Learning Path */
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .learning-card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.35s ease;
+    }
+
+    .learning-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .learning-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    .learning-content {
+      padding: 28px;
+    }
+
+    .learning-content .period {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .learning-content h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .learning-content p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Contact */
+    #contact {
+      padding-bottom: 60px;
+    }
+
+    .contact-card {
+      background: var(--dark-card);
+      border-radius: var(--radius-xl);
+      padding: 64px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      filter: blur(60px);
+    }
+
+    .contact-eyebrow {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .contact-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .contact-desc {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 520px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .contact-actions .btn {
+      padding: 13px 24px;
+      font-size: 13px;
+    }
+
+    .btn-green {
+      background: var(--accent-green);
+      color: white;
+    }
+
+    .btn-green:hover {
+      background: #4a664a;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.4);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px 50px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .experience-card,
+      .project-showcase {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .hero-portrait-frame {
+        max-width: 320px;
+      }
+
+      .hero-badge {
+        right: 10px;
+        bottom: 16px;
+        padding: 12px 16px;
+      }
+
+      .archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .learning-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-card {
+        padding: 40px;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav-wrapper {
+        padding: 12px 3vw;
+      }
+
+      nav {
+        padding: 8px 10px;
+      }
+
+      .nav-resume {
+        padding: 7px 12px;
+        font-size: 12px;
+      }
+
+      .hero-title {
+        font-size: 40px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-tags {
+        gap: 8px;
+      }
+
+      .tag {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .experience-card,
+      .project-showcase {
+        padding: 24px;
+      }
+
+      .project-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-card {
+        padding: 32px 24px;
+      }
+
+      .contact-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrapper">
+    <nav>
+      <a href="#hero" class="nav-brand">
+        <img src="images/hero-portrait.jpg" alt="" class="nav-avatar">
+        <span>阮佳瑶 PORTFOLIO</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">首页</a></li>
+        <li><a href="#experience">真实现场</a></li>
+        <li><a href="#projects">个人项目</a></li>
+        <li><a href="#archive">档案卡</a></li>
+        <li><a href="#learning">学习坐标</a></li>
+        <li><a href="#contact">联系我</a></li>
+      </ul>
+      <a href="#" class="nav-resume">简历 pdf</a>
+    </nav>
+  </div>
+
+  <section id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="hero-eyebrow">HELLO / 你好</div>
+          <h1 class="hero-title">Hi，<br>我是阮佳瑶</h1>
+          <div class="hero-role">用 AI 做内容与产品的操盘手</div>
+          <p class="hero-desc">我做过 AI 助教 Demo、校园招募洞察、求职岗位分析、Obsidian 知识库、Hermes Agent 部署。内容能写，产品能做，从 0 到 1 把想法落进交付物里。</p>
+          <div class="hero-tags">
+            <span class="tag"><span class="tag-dot"></span>AI 内容</span>
+            <span class="tag"><span class="tag-dot"></span>产品实践</span>
+            <span class="tag"><span class="tag-dot"></span>Agent 部署</span>
+            <span class="tag"><span class="tag-dot"></span>知识库搭建</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#experience" class="btn btn-dark">看我的经历</a>
+            <a href="#contact" class="btn btn-light">联系我</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-glow hero-glow-1"></div>
+          <div class="hero-glow hero-glow-2"></div>
+          <div class="hero-portrait-frame">
+            <img src="images/hero-portrait.jpg" alt="阮佳瑶" loading="eager">
+          </div>
+          <div class="hero-badge">
+            <div class="number">7+</div>
+            <div class="text">AI 实战项目</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">02 / EXPERIENCE</div>
+        <h2 class="section-title">我在真实现场做过什么</h2>
+        <p class="section-subtitle">不是每个项目都完美，但每个都在真实场景里跑通过。</p>
+      </div>
+      <div class="experience-list">
+        <div class="experience-card">
+          <div class="experience-visual">
+            <img src="images/work-ai-teacher.jpg" alt="AI 助教工作台" loading="eager">
+            <div class="experience-timeline"></div>
+          </div>
+          <div class="experience-content">
+            <span class="period">独立产品 Demo</span>
+            <h3>AI 助教全学科成长工作台</h3>
+            <p>从教师真实工作流出发，把作业批改、拍照转写、错题归因、减负台、微课、智能推题合成一个可确认、可打印的教师端 Demo。AI 只做初稿，最终评分与发布始终由老师确认。</p>
+            <div class="experience-tags">
+              <span>教育产品</span>
+              <span>AI 工作流</span>
+              <span>教师减负</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-visual">
+            <img src="images/work-college-insight.jpg" alt="校园招募洞察" loading="eager">
+            <div class="experience-timeline"></div>
+          </div>
+          <div class="experience-content">
+            <span class="period">北辰青年 · 线上实习</span>
+            <h3>校园招募对象洞察报告</h3>
+            <p>针对大学生群体的招募策略研究。从 LACK 模型出发，画出人物卡「小柚」，把「真实感」「确定性」「实际交付」三个洞察落到招募文案和分层策略里。</p>
+            <div class="experience-tags">
+              <span>用户研究</span>
+              <span>招募策略</span>
+              <span>文案落地</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-visual">
+            <img src="images/work-job-analysis.jpg" alt="求职岗位分析" loading="eager">
+            <div class="experience-timeline"></div>
+          </div>
+          <div class="experience-content">
+            <span class="period">AI 辅助决策工具</span>
+            <h3>求职岗位分析助手</h3>
+            <p>按「看懂岗位 → 匹配经历 → 优势与缺口 → 是否值得申请 → 简历调整 → 面试问题」六步，把岗位 JD 和个人经历交叉分析，不编造、不夸大，只给可验证的判断。</p>
+            <div class="experience-tags">
+              <span>AI 分析</span>
+              <span>求职决策</span>
+              <span>简历优化</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">03 / SIDE PROJECTS</div>
+        <h2 class="section-title">没有排期，也想把它做出来</h2>
+        <p class="section-subtitle">这些项目没有 KPI，只是我觉得值得做，就做了。</p>
+      </div>
+      <div class="project-showcase">
+        <div class="project-gallery">
+          <img src="images/work-readme.jpg" alt="AI 时代个人说明书" loading="eager">
+          <img src="images/work-obsidian.jpg" alt="Obsidian 知识库" loading="eager">
+        </div>
+        <div class="project-info">
+          <span class="period">个人系统 · 知识管理</span>
+          <h3>把个人系统跑成基础设施</h3>
+          <p>写了一份 7 模块的《AI 时代个人说明书》，把任务系统、协作方式、压力预警、支持系统写清楚；又用 Obsidian 搭了 Raw / Wiki / Outputs / Projects / Daily 五层知识库，让碎片信息能沉淀、可追溯。</p>
+          <p>Agent 不只是聊天工具，也成了我每天推进任务的协作方。</p>
+          <div class="experience-tags">
+            <span>个人说明书</span>
+            <span>Obsidian</span>
+            <span>知识库</span>
+            <span>Agent 协作</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="archive">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">04 / ARCHIVE CARDS</div>
+        <h2 class="section-title">随机抽取一张我的档案卡</h2>
+        <p class="section-subtitle">一些标签化的能力、偏好和习惯，方便快速了解我。</p>
+      </div>
+      <div class="archive-grid">
+        <div class="archive-card">
+          <div class="archive-icon">🚀</div>
+          <h3>先做再调</h3>
+          <p>不太怕从零开始，习惯用最小可运行版本验证想法，在行动和反馈里迭代。</p>
+          <div class="archive-meta">工作模式 / Working Style</div>
+        </div>
+        <div class="archive-card">
+          <div class="archive-icon">🤖</div>
+          <h3>AI 原生</h3>
+          <p>把 Claude、Coze、Hermes 等工具接入真实工作流，让 AI 从「等我问」变成「主动推」。</p>
+          <div class="archive-meta">技术偏好 / Tech Stack</div>
+        </div>
+        <div class="archive-card">
+          <div class="archive-icon">📝</div>
+          <h3>内容能写</h3>
+          <p>写过人物故事、招募文案、岗位分析、项目复盘。关心的是「活人感」，不是流量腔。</p>
+          <div class="archive-meta">内容能力 / Content</div>
+        </div>
+        <div class="archive-card">
+          <div class="archive-icon">🧩</div>
+          <h3>组织协作</h3>
+          <p>从零发起过 14 人 AI 学习社群，也做过策略组小组长，能把人聚起来把事落下去。</p>
+          <div class="archive-meta">协作能力 / Collaboration</div>
+        </div>
+        <div class="archive-card">
+          <div class="archive-icon">🎯</div>
+          <h3>长期目标</h3>
+          <p>想做 AI 产品经理，或者一个人开公司。短期专注把内容与产品的手感练出来。</p>
+          <div class="archive-meta">职业方向 / Goal</div>
+        </div>
+        <div class="archive-card">
+          <div class="archive-icon">📍</div>
+          <h3>当前坐标</h3>
+          <p>湖北襄阳，开学后迁成都。远程协作没问题，习惯飞书、微信、邮件异步沟通。</p>
+          <div class="archive-meta">所在地 / Location</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="learning">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">05 / LEARNING PATH</div>
+        <h2 class="section-title">我的学习坐标</h2>
+        <p class="section-subtitle">学校是坐标之一，实践是另一条线。</p>
+      </div>
+      <div class="learning-grid">
+        <div class="learning-card">
+          <img src="images/work-hermes.jpg" alt="西南交通大学" loading="eager">
+          <div class="learning-content">
+            <div class="period">2026.09 - 2029（预计）</div>
+            <h3>西南交通大学 · 信息管理与信息系统</h3>
+            <p>准大一新生，9 月入学。把学校课程和课外实践并行，主攻 AI 产品、内容运营和自动化工作流。</p>
+          </div>
+        </div>
+        <div class="learning-card">
+          <img src="images/work-hermes-feishu.jpg" alt="北辰青年实习" loading="eager">
+          <div class="learning-content">
+            <div class="period">2026.07 - 至今</div>
+            <h3>北辰青年 · 线上实习生</h3>
+            <p>参与校园招募洞察、策略输出和项目落地。在真实组织里学习怎么把洞察变成可执行的方案。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <div class="contact-eyebrow">06 / LET'S TALK</div>
+        <h2 class="contact-title">下一段经历，<br>也许可以一起创建。</h2>
+        <p class="contact-desc">我正在做 AI 内容、产品工具和自动化工作流。如果你对这些方向感兴趣，欢迎找我聊。我习惯先做出最小可运行版本，再一起迭代。</p>
+        <div class="contact-actions">
+          <a href="mailto:2958731556@qq.com" class="btn btn-green">发邮件给我</a>
+          <a href="tel:18307121636" class="btn btn-outline">18307121636</a>
+          <a href="#" class="btn btn-outline">微信：rjy18307211636</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 阮佳瑶 · 用 AI 做内容与产品的操盘手</p>
+  </footer>
+
+  <script>
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
